@@ -33,9 +33,7 @@ const loadTasks = async () => {
 };
 
 const handleAddTask = async (newTask) => {
-  console.log("Entro");
   if (!newTask.title || !newTask.description) return;
-  console.log("No paso mas");
   await addTask(newTask);
   newTask = { title: "", description: "" };
   await loadTasks();
