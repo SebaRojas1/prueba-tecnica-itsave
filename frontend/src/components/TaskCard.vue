@@ -44,7 +44,7 @@
       <div class="flex gap-2">
         <button
           @click="toggleTask"
-          class="p-2 rounded-md transition-colors duration-200 flex items-center justify-center"
+          class="p-2 rounded-md transition-colors duration-200 flex items-center justify-center cursor-pointer"
           :class="
             task.is_completed
               ? 'bg-green-100 text-green-700 hover:bg-green-200'
@@ -59,7 +59,7 @@
         </button>
         <button
           @click="showModal = true"
-          class="bg-red-100 text-red-700 hover:bg-red-200 p-2 rounded-md transition-colors duration-200 flex items-center justify-center"
+          class="bg-red-100 text-red-700 hover:bg-red-200 p-2 rounded-md transition-colors duration-200 flex items-center justify-center cursor-pointer"
           title="Eliminar"
         >
           <TrashIcon class="w-4 h-4" />

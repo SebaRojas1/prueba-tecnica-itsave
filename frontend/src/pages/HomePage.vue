@@ -31,6 +31,9 @@ import {
 } from "@/services/taskService";
 import TaskForm from "@/components/TaskForm.vue";
 import TaskCard from "@/components/TaskCard.vue";
+import { useToast } from "vue-toastification";
+
+const toast = useToast();
 
 const tasks = ref([]);
 
@@ -40,15 +43,26 @@ const loadTasks = async () => {
     tasks.value = response.data;
   } catch (error) {
     console.error("Error al cargar tareas:", error);
+    toast.error("Error al cargar tareas");
   }
 };
 
 const handleAddTask = async (taskData) => {
+
+  const { title, description } = taskData;
+
+  if (!title || !description) {
+    toast.warning("Por favor, completa los campos vacíos.");
+    return;
+  }
+
   try {
     await addTask(taskData);
     await loadTasks();
+    toast.success("Tarea agregada correctamente");
   } catch (error) {
     console.error("Error al agregar tarea:", error);
+    toast.error("Error al agregar tarea");
   }
 };
 
@@ -56,8 +70,10 @@ const removeTask = async (id) => {
   try {
     await deleteTask(id);
     await loadTasks();
+    toast.success("Tarea eliminada correctamente");
   } catch (error) {
     console.error("Error al eliminar tarea:", error);
+    toast.error("Error al eliminar tarea");
   }
 };
 
@@ -67,6 +83,7 @@ const markCompletedTask = async (id) => {
     await loadTasks();
   } catch (error) {
     console.error("Error al marcar tarea:", error);
+    toast.error("Error al marcar tarea");
   }
 };
 
