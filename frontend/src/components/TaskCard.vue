@@ -58,7 +58,7 @@
           />
         </button>
         <button
-          @click="deleteTask"
+          @click="showModal = true"
           class="bg-red-100 text-red-700 hover:bg-red-200 p-2 rounded-md transition-colors duration-200 flex items-center justify-center"
           title="Eliminar"
         >
@@ -66,11 +66,15 @@
         </button>
       </div>
     </div>
+
+    <ConfirmModal v-model="showModal" @confirm="confirmDelete" />
   </li>
 </template>
 
 <script setup>
+import { ref } from "vue";
 import { TrashIcon, CheckSquare, Square } from "lucide-vue-next";
+import ConfirmModal from "./ConfirmModal.vue";
 
 const props = defineProps({
   task: {
@@ -81,11 +85,14 @@ const props = defineProps({
 
 const emit = defineEmits(["toggle", "delete"]);
 
+const showModal = ref(false);
+
 const toggleTask = () => {
   emit("toggle", props.task.id);
 };
 
-const deleteTask = () => {
+const confirmDelete = () => {
   emit("delete", props.task.id);
+  showModal.value = false;
 };
 </script>
