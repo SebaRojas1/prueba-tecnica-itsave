@@ -5,9 +5,19 @@
     <h1 class="text-3xl font-bold mb-6 text-gray-800 text-center">
       Lista de Tareas
     </h1>
-    <div class="text-center">
-      <TaskForm @submit="handleAddTask" />
+    <TaskForm @submit="handleAddTask" />
+    <div v-if="tasks.length === 0" class="text-center py-8 text-gray-500">
+      No hay tareas pendientes. ¡Agrega una nueva tarea!
     </div>
+    <ul v-else class="space-y-3">
+      <TaskCard
+        v-for="task in tasks"
+        :key="task.id"
+        :task="task"
+        @toggle="markCompletedTask"
+        @delete="removeTask"
+      />
+    </ul>
   </div>
 </template>
 
@@ -20,33 +30,44 @@ import {
   markTask,
 } from "@/services/taskService";
 import TaskForm from "@/components/TaskForm.vue";
+import TaskCard from "@/components/TaskCard.vue";
 
 const tasks = ref([]);
-const newTask = ref({
-  title: "",
-  description: "",
-});
 
 const loadTasks = async () => {
-  const response = await getTasks();
-  tasks.value = response.data;
+  try {
+    const response = await getTasks();
+    tasks.value = response.data;
+  } catch (error) {
+    console.error("Error al cargar tareas:", error);
+  }
 };
 
-const handleAddTask = async (newTask) => {
-  if (!newTask.title || !newTask.description) return;
-  await addTask(newTask);
-  newTask = { title: "", description: "" };
-  await loadTasks();
+const handleAddTask = async (taskData) => {
+  try {
+    await addTask(taskData);
+    await loadTasks();
+  } catch (error) {
+    console.error("Error al agregar tarea:", error);
+  }
 };
 
 const removeTask = async (id) => {
-  await deleteTask(id);
-  await loadTasks();
+  try {
+    await deleteTask(id);
+    await loadTasks();
+  } catch (error) {
+    console.error("Error al eliminar tarea:", error);
+  }
 };
 
 const markCompletedTask = async (id) => {
-  await markTask(id);
-  await loadTasks();
+  try {
+    await markTask(id);
+    await loadTasks();
+  } catch (error) {
+    console.error("Error al marcar tarea:", error);
+  }
 };
 
 onMounted(() => {
