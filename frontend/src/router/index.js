@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import MainLayout from "@/layouts/MainLayout.vue";
-import TaskList from "@/pages/TaskList.vue";
+import HomePage from "@/pages/HomePage.vue";
 
 const routes = [
   {
@@ -9,8 +9,8 @@ const routes = [
     children: [
       {
         path: "",
-        name: "task-list",
-        component: TaskList,
+        name: "main",
+        component: HomePage,
       },
     ],
   },
