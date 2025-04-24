@@ -1,24 +1,26 @@
 <template>
-  <div
-    class="max-w-3xl mx-auto p-6 mt-16 sm:mt-8 bg-gray-50 rounded-lg shadow-md"
-  >
-    <h1 class="text-3xl font-bold mb-6 text-gray-800 text-center">
-      Lista de Tareas
-    </h1>
-    <TaskForm @submit="handleAddTask" />
-    <div v-if="tasks.length === 0" class="text-center py-8 text-gray-500">
-      No hay tareas pendientes. ¡Agrega una nueva tarea!
+  <Transition name="fade-slide" appear>
+    <div
+      class="max-w-3xl mx-auto p-6 mt-16 sm:mt-8 bg-gray-50 rounded-lg shadow-md"
+    >
+      <h1 class="text-3xl font-bold mb-6 text-gray-800 text-center">
+        Lista de Tareas
+      </h1>
+      <TaskForm @submit="handleAddTask" />
+      <div v-if="tasks.length === 0" class="text-center py-8 text-gray-500">
+        No hay tareas pendientes. ¡Agrega una nueva tarea!
+      </div>
+      <ul v-else class="space-y-3">
+        <TaskCard
+          v-for="task in tasks"
+          :key="task.id"
+          :task="task"
+          @toggle="markCompletedTask"
+          @delete="removeTask"
+        />
+      </ul>
     </div>
-    <ul v-else class="space-y-3">
-      <TaskCard
-        v-for="task in tasks"
-        :key="task.id"
-        :task="task"
-        @toggle="markCompletedTask"
-        @delete="removeTask"
-      />
-    </ul>
-  </div>
+  </Transition>
 </template>
 
 <script setup>
@@ -48,11 +50,10 @@ const loadTasks = async () => {
 };
 
 const handleAddTask = async (taskData) => {
-
   const { title, description } = taskData;
 
   if (!title || !description) {
-    toast.warning("Por favor, completa los campos vacíos.");
+    toast.info("Por favor, completa los campos vacíos.");
     return;
   }
 
@@ -91,3 +92,26 @@ onMounted(() => {
   loadTasks();
 });
 </script>
+
+<style scoped>
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all 0.5s ease;
+}
+.fade-slide-enter-from {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.fade-slide-enter-to {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fade-slide-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+}
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+</style>

@@ -1,5 +1,7 @@
 <template>
-  <footer class="bg-gradient-to-r from-emerald-400 via-blue-800 to-purple-500 py-8 text-white shadow-lg">
+  <footer
+    class="bg-gradient-to-r from-emerald-400 via-blue-800 to-purple-500 py-8 text-white shadow-lg"
+  >
     <div class="container mx-auto px-4">
       <div class="flex flex-col items-center justify-center">
         <div class="mb-4">
@@ -8,7 +10,10 @@
         </div>
         <p class="text-sm opacity-80 mt-2">Organiza tu día de forma efectiva</p>
         <div class="flex space-x-4 mt-4">
-          <a href="https://github.com/SebaRojas1" class="hover:text-emerald-200 transition-colors duration-300">
+          <a
+            href="https://github.com/SebaRojas1"
+            class="hover:text-emerald-200 transition-colors duration-300"
+          >
             <GithubIcon class="h-6 w-6" />
           </a>
         </div>
@@ -18,5 +23,5 @@
 </template>
 
 <script setup>
-import { GithubIcon } from 'lucide-vue-next';
+import { GithubIcon } from "lucide-vue-next";
 </script>

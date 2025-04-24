@@ -8,6 +8,7 @@
   >
     <div class="flex justify-between items-center">
       <div class="flex-1">
+        <!-- Title and status -->
         <div class="flex items-center gap-2">
           <h3
             class="font-bold text-lg transition-opacity duration-200"
@@ -30,6 +31,7 @@
           </span>
         </div>
 
+        <!-- Description -->
         <p
           class="mt-1 transition-opacity duration-200"
           :class="{
@@ -41,6 +43,7 @@
         </p>
       </div>
 
+      <!-- Action buttons -->
       <div class="flex gap-2">
         <button
           @click="toggleTask"
