@@ -35,6 +35,7 @@ venv\Scripts\activate
 # En macOS o Linux:
 source venv/bin/activate
 
+cd backend
 # Instalar dependencias
 pip install -r requirements.txt
 ```
@@ -67,8 +68,7 @@ FRONTEND_URL=http://localhost:4000
 
 #### Realizar migraciones
 ```bash
-cd backend
-python manage.py makemigration
+python manage.py makemigrations
 python manage.py migrate
 ```
 
